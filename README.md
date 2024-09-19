@@ -1,4 +1,4 @@
-# Plataforma descomplicando o inglês
+# Plataforma Descomplicando o Inglês
 
 ## Descrição
 
