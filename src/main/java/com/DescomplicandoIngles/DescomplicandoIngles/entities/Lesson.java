@@ -3,8 +3,6 @@ package com.DescomplicandoIngles.DescomplicandoIngles.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
-import java.util.List;
-
 @Entity
 @Table(name = "table_lesson")
 public class Lesson {
@@ -17,9 +15,9 @@ public class Lesson {
     String status;
     Boolean available;
 
-    @Lob
-    @Column(length = 65535)
-    private String content;
+    @OneToOne
+    @JoinColumn(name = "content_id")
+    private Content content;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -38,7 +36,7 @@ public class Lesson {
 
     }
 
-    public Lesson(Integer id, String title, String status, Boolean available, Progress progress, DifficultyLevel difficultyLevel, String content, User user) {
+    public Lesson(Integer id, String title, String status, Boolean available, Progress progress, DifficultyLevel difficultyLevel, Content content, User user) {
         this.id = id;
         this.title = title;
         this.status = status;
@@ -97,11 +95,11 @@ public class Lesson {
         this.difficultyLevel = difficultyLevel;
     }
 
-    public String getContent() {
+    public Content getContent() {
         return content;
     }
 
-    public void setContent(String content) {
+    public void setContent(Content content) {
         this.content = content;
     }
 
