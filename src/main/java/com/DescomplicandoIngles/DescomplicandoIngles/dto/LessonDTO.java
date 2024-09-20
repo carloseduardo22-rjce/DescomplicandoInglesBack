@@ -1,11 +1,12 @@
 package com.DescomplicandoIngles.DescomplicandoIngles.dto;
 
+import com.DescomplicandoIngles.DescomplicandoIngles.entities.Content;
 import com.DescomplicandoIngles.DescomplicandoIngles.entities.Lesson;
 
 public class LessonDTO {
     private Integer id;
     private String title;
-    private String content;
+    private Content content;
 
     public LessonDTO(){
 
@@ -33,11 +34,11 @@ public class LessonDTO {
         this.title = title;
     }
 
-    public String getContent() {
+    public Content getContent() {
         return content;
     }
 
-    public void setContent(String content) {
+    public void setContent(Content content) {
         this.content = content;
     }
 
