@@ -31,7 +31,7 @@ public class LearningModuleController {
             @PathVariable Integer difficultyId,
             @PathVariable Integer userId) {
 
-        return learningModuleService.findLessonsByModuleAndDifficulty(moduleId, difficultyId);
+        return learningModuleService.findLessonsByModuleAndDifficulty(moduleId, difficultyId, userId);
     }
 
 }
