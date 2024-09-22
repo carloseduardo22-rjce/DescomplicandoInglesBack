@@ -1,4 +1,4 @@
-package com.DescomplicandoIngles.DescomplicandoIngles.entities;
+package com.DescomplicandoIngles.DescomplicandoIngles.entities.user;
 
 public enum UserRole {
 
