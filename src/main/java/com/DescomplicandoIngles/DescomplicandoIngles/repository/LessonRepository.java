@@ -1,7 +1,7 @@
 package com.DescomplicandoIngles.DescomplicandoIngles.repository;
 
 import com.DescomplicandoIngles.DescomplicandoIngles.entities.Lesson;
-import com.DescomplicandoIngles.DescomplicandoIngles.entities.User;
+import com.DescomplicandoIngles.DescomplicandoIngles.entities.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

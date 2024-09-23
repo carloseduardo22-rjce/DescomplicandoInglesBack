@@ -1,6 +1,6 @@
 package com.DescomplicandoIngles.DescomplicandoIngles.controllers;
 
-import com.DescomplicandoIngles.DescomplicandoIngles.entities.UserLessonInteraction;
+import com.DescomplicandoIngles.DescomplicandoIngles.entities.user.UserLessonInteraction;
 import com.DescomplicandoIngles.DescomplicandoIngles.service.UserLessonInteractionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

@@ -1,7 +1,7 @@
-package com.DescomplicandoIngles.DescomplicandoIngles.entities;
+package com.DescomplicandoIngles.DescomplicandoIngles.entities.user;
 
+import com.DescomplicandoIngles.DescomplicandoIngles.entities.DifficultyLevel;
 import jakarta.persistence.*;
-import org.hibernate.annotations.GenericGenerator;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,6 +23,8 @@ public class User implements UserDetails {
     private String email;
     private String login;
     private String password;
+
+    @Enumerated(EnumType.STRING)
     private UserRole role;
 
     @ManyToOne
@@ -36,14 +38,17 @@ public class User implements UserDetails {
 
     }
 
-    public User(UUID id, String name, String email, String password, DifficultyLevel difficultyLevel, UserRole role, String login) {
+    public User (String login, String password, UserRole role) {
+        this.login = login;
+        this.password = password;
+        this.role = role;
+    }
+
+    public User(UUID id, String name, String email, DifficultyLevel difficultyLevel) {
         this.id = id;
         this.name = name;
         this.email = email;
-        this.password = password;
         this.difficultyLevel = difficultyLevel;
-        this.role = role;
-        this.login = login;
     }
 
     public UUID getId() {
@@ -132,6 +137,14 @@ public class User implements UserDetails {
 
     public void setRole(UserRole role) {
         this.role = role;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     @Override
