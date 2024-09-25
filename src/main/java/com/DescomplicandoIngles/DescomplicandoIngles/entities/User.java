@@ -21,6 +21,7 @@ public class User implements UserDetails {
 
     private String name;
     private String email;
+    private String photoUrl;
     private String login;
     private String password;
     private UserRole role;
@@ -36,10 +37,11 @@ public class User implements UserDetails {
 
     }
 
-    public User(UUID id, String name, String email, String password, DifficultyLevel difficultyLevel, UserRole role, String login) {
+    public User(UUID id, String name, String email, String photoUrl, String password, DifficultyLevel difficultyLevel, UserRole role, String login) {
         this.id = id;
         this.name = name;
         this.email = email;
+        this.photoUrl = photoUrl;
         this.password = password;
         this.difficultyLevel = difficultyLevel;
         this.role = role;
@@ -68,6 +70,14 @@ public class User implements UserDetails {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
     }
 
     @Override

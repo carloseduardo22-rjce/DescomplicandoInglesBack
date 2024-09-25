@@ -18,8 +18,7 @@ public class ReportController {
 
     @GetMapping(value = "/{id}")
     public ReportDTO returnReport (@PathVariable Integer id) {
-        ReportDTO reportDTO = reportService.findByReport(id);
-        return reportDTO;
+        return reportService.findByReport(id);
     }
 
 }
