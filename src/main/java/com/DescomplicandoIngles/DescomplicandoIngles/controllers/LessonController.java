@@ -19,20 +19,17 @@ public class LessonController {
 
     @GetMapping
     public List<Lesson> lessonsAvailable() {
-        List<Lesson> lessonList = lessonService.findAllAvailables();
-        return lessonList;
+        return lessonService.findAllAvailables();
     }
 
     @GetMapping(value = "/Start/{id}")
     public Lesson startLesson(@PathVariable Integer id) {
-        Lesson lesson = lessonService.startLesson(id);
-        return lesson;
+        return lessonService.startLesson(id);
     }
 
     @GetMapping(value = "/CompleteLesson/{id}")
     public Lesson completeLesson(@PathVariable Integer id) {
-        Lesson lesson = lessonService.completLesson(id);
-        return lesson;
+        return lessonService.completLesson(id);
     }
 
 }
