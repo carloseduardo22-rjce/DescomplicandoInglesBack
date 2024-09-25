@@ -4,7 +4,7 @@ import com.DescomplicandoIngles.DescomplicandoIngles.dto.LessonDTO;
 import com.DescomplicandoIngles.DescomplicandoIngles.entities.DifficultyLevel;
 import com.DescomplicandoIngles.DescomplicandoIngles.entities.LearningModule;
 import com.DescomplicandoIngles.DescomplicandoIngles.entities.Lesson;
-import com.DescomplicandoIngles.DescomplicandoIngles.entities.User;
+import com.DescomplicandoIngles.DescomplicandoIngles.entities.user.User;
 import com.DescomplicandoIngles.DescomplicandoIngles.repository.DifficultyLevelRepository;
 import com.DescomplicandoIngles.DescomplicandoIngles.repository.LearningModuleRepository;
 import com.DescomplicandoIngles.DescomplicandoIngles.repository.UserRepository;
@@ -16,6 +16,7 @@ import com.DescomplicandoIngles.DescomplicandoIngles.service.exception.ObjectNot
 
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -35,7 +36,7 @@ public class LearningModuleService {
         return learningModuleRepository.findAll();
     }
 
-    public ResponseEntity<?> findLessonsByModuleAndDifficulty(Integer learningModuleId, Integer difficultyId, Integer userId) {
+    public ResponseEntity<?> findLessonsByModuleAndDifficulty(Integer learningModuleId, Integer difficultyId, UUID userId) {
         LearningModule learningModule = learningModuleRepository.findById(learningModuleId)
                 .orElseThrow(() -> new ObjectNotFoundException("Module not found!"));
 
@@ -47,7 +48,7 @@ public class LearningModuleService {
         DifficultyLevel difficultyLevel = difficultyLevelRepository.findByIdAndLearningModule(difficultyId, learningModule)
                 .orElseThrow(() -> new ObjectNotFoundException("Difficulty level not found for this module!"));
 
-        User user = userRepository.findById(userId)
+        User user = (User) userRepository.findById(userId)
                 .orElseThrow(() -> new ObjectNotFoundException("User not found!"));
 
         if (user.getDifficultyLevel() != difficultyLevel) {

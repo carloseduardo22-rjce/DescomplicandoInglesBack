@@ -1,5 +1,6 @@
 package com.DescomplicandoIngles.DescomplicandoIngles.entities;
 
+import com.DescomplicandoIngles.DescomplicandoIngles.entities.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 

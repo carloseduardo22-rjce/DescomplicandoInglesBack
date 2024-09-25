@@ -1,5 +1,6 @@
 package com.DescomplicandoIngles.DescomplicandoIngles.entities;
 
+import com.DescomplicandoIngles.DescomplicandoIngles.entities.user.UserLessonInteraction;
 import jakarta.persistence.*;
 
 @Entity

@@ -1,5 +1,7 @@
-package com.DescomplicandoIngles.DescomplicandoIngles.entities;
+package com.DescomplicandoIngles.DescomplicandoIngles.entities.user;
 
+import com.DescomplicandoIngles.DescomplicandoIngles.entities.FeedBack;
+import com.DescomplicandoIngles.DescomplicandoIngles.entities.Lesson;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;

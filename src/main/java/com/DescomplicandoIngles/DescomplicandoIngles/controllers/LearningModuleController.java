@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/LearningModule")
@@ -25,11 +26,11 @@ public class LearningModuleController {
         return ResponseEntity.ok().body(learningModules);
     }
 
-    @GetMapping("/{moduleId}/difficulty/{difficultyId}/lessons")
+    @GetMapping("/{moduleId}/difficulty/{difficultyId}/user/{userId}/lesson")
     public ResponseEntity<?> getLessonsByDifficultyLevel(
             @PathVariable Integer moduleId,
             @PathVariable Integer difficultyId,
-            @PathVariable Integer userId) {
+            @PathVariable UUID userId) {
 
         return learningModuleService.findLessonsByModuleAndDifficulty(moduleId, difficultyId, userId);
     }
