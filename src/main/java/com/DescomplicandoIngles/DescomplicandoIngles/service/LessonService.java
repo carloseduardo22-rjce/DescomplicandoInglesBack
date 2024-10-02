@@ -50,6 +50,7 @@ public class LessonService {
                 .map(UserLessonInteraction::getLesson) // Mapeia cada interação para a lição associada
                 .collect(Collectors.toList());
     }
+    
 }
 
 
