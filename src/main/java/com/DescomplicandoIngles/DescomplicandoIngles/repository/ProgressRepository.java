@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ProgressRepository extends JpaRepository<Progress, Integer> {
-    Lesson findByLessonId(Integer id);
+    Progress findByLesson(Lesson lesson);
 }

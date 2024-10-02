@@ -18,8 +18,7 @@ public class UserLessonInteractionController {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<UserLessonInteraction> userLessonFeedback (@PathVariable Integer id) {
-        UserLessonInteraction userLessonInteraction = userLessonInteractionService.findById(id);
-        return ResponseEntity.ok().body(userLessonInteraction);
+        return ResponseEntity.ok().body(userLessonInteractionService.findById(id));
     }
 
 }

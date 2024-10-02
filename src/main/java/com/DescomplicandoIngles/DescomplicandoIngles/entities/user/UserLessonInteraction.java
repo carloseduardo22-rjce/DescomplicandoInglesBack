@@ -2,6 +2,7 @@ package com.DescomplicandoIngles.DescomplicandoIngles.entities.user;
 
 import com.DescomplicandoIngles.DescomplicandoIngles.entities.FeedBack;
 import com.DescomplicandoIngles.DescomplicandoIngles.entities.Lesson;
+import com.DescomplicandoIngles.DescomplicandoIngles.entities.Progress;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -27,15 +28,19 @@ public class UserLessonInteraction {
     @OneToOne(mappedBy = "interaction")
     private FeedBack feedBack;
 
+    @OneToOne(mappedBy = "interaction", cascade = CascadeType.ALL)
+    private Progress progress;
+
     public UserLessonInteraction() {
     }
 
-    public UserLessonInteraction(Integer id, User user, Lesson lesson, LocalDate completionDate, FeedBack feedBack) {
+    public UserLessonInteraction(Integer id, User user, Lesson lesson, LocalDate completionDate, FeedBack feedBack, Progress progress) {
         this.id = id;
         this.user = user;
         this.lesson = lesson;
         this.completionDate = completionDate;
         this.feedBack = feedBack;
+        this.progress = progress;
     }
 
     public Integer getId() {
@@ -77,4 +82,15 @@ public class UserLessonInteraction {
     public void setFeedBack(FeedBack feedBack) {
         this.feedBack = feedBack;
     }
+
+    public Progress getProgress() {
+        return progress;
+    }
+
+    public void setProgress(Progress progress) {
+        this.progress = progress;
+    }
+
+
+
 }

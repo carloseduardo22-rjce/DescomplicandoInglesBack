@@ -1,9 +1,10 @@
 package com.DescomplicandoIngles.DescomplicandoIngles.entities;
 
-import com.DescomplicandoIngles.DescomplicandoIngles.entities.user.User;
+import com.DescomplicandoIngles.DescomplicandoIngles.entities.user.UserLessonInteraction;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.time.LocalDateTime;
 
 @Entity
@@ -29,14 +30,9 @@ public class Lesson {
     @JoinColumn(name = "content_id")
     private Content content;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
+    @OneToMany(mappedBy = "lesson")
     @JsonIgnore
-    private User user;
-
-    @OneToOne(mappedBy = "lesson")
-    @JsonIgnore
-    private Progress progress;
+    private List<UserLessonInteraction> userLessonInteractions;
 
     @ManyToOne
     @JoinColumn(name = "difficulty_level_id")
@@ -46,15 +42,14 @@ public class Lesson {
 
     }
 
-    public Lesson(Integer id, String title, String status, Boolean available, Progress progress, DifficultyLevel difficultyLevel, Content content, User user, LocalDateTime lessonStart, LocalDateTime lessonEnd, Integer points) {
+    public Lesson(Integer id, String title, String status, Boolean available, DifficultyLevel difficultyLevel, Content content, List<UserLessonInteraction> userLessonInteractions, LocalDateTime lessonStart, LocalDateTime lessonEnd, Integer points) {
         this.id = id;
         this.title = title;
         this.status = status;
         this.available = available;
-        this.progress = progress;
         this.difficultyLevel = difficultyLevel;
         this.content = content;
-        this.user = user;
+        this.userLessonInteractions = userLessonInteractions;
         this.lessonStart = lessonStart;
         this.lessonEnd = lessonEnd;
         this.points = points;
@@ -92,14 +87,6 @@ public class Lesson {
         this.available = available;
     }
 
-    public Progress getProgress() {
-        return progress;
-    }
-
-    public void setProgress(Progress progress) {
-        this.progress = progress;
-    }
-
     public DifficultyLevel getDifficultyLevel() {
         return difficultyLevel;
     }
@@ -116,12 +103,12 @@ public class Lesson {
         this.content = content;
     }
 
-    public User getUser() {
-        return user;
+    public List<UserLessonInteraction> getUserLessonInteractions() {
+        return userLessonInteractions;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserLessonInteractions(List<UserLessonInteraction> userLessonInteractions) {
+        this.userLessonInteractions = userLessonInteractions;
     }
 
     public LocalDateTime getLessonStart() {

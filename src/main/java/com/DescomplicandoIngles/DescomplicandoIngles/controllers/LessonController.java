@@ -29,7 +29,7 @@ public class LessonController {
 
     @GetMapping(value = "/CompleteLesson/{id}")
     public Lesson completeLesson(@PathVariable Integer id) {
-        return lessonService.completLesson(id);
+        return lessonService.completeLesson(id);
     }
 
 }

@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public interface LessonRepository extends JpaRepository<Lesson, Integer> {
-    List<Lesson> findByUser(User user);
+
 
     @Query("SELECT L FROM Lesson L where L.available = true")
     List<Lesson> findAvailableLessons();

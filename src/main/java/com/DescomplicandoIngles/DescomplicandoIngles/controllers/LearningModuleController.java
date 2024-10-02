@@ -22,8 +22,7 @@ public class LearningModuleController {
 
     @GetMapping
     public ResponseEntity<List<LearningModule>> learningModulesAvailables() {
-        List<LearningModule> learningModules = learningModuleService.moduleList();
-        return ResponseEntity.ok().body(learningModules);
+        return ResponseEntity.ok().body(learningModuleService.moduleList());
     }
 
     @GetMapping("/{moduleId}/difficulty/{difficultyId}/user/{userId}/lesson")

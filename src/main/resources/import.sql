@@ -1,4 +1,4 @@
-INSERT INTO table_learning_module (name, description, in_maintenance) VALUES ('Vocabulário', 'Módulo focado no aumento de vocabulário', true);
+INSERT INTO table_learning_module (name, description, in_maintenance) VALUES ('Vocabulário', 'Módulo focado no aumento de vocabulário', false);
 
 -- Inserindo um nível de dificuldade na tabela 'table_difficulty_level' referenciando o módulo recém-criado
 -- Assumindo que o ID do módulo criado automaticamente é 1

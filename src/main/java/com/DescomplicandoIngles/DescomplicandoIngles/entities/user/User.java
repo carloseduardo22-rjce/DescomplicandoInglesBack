@@ -1,15 +1,17 @@
 package com.DescomplicandoIngles.DescomplicandoIngles.entities.user;
 
+import com.DescomplicandoIngles.DescomplicandoIngles.entities.Annotation;
+import com.DescomplicandoIngles.DescomplicandoIngles.entities.GroupMessage.BlockedUser;
 import com.DescomplicandoIngles.DescomplicandoIngles.entities.DifficultyLevel;
+import com.DescomplicandoIngles.DescomplicandoIngles.entities.GroupMessage.Group;
+import com.DescomplicandoIngles.DescomplicandoIngles.entities.GroupMessage.Message;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @Table(name = "table_users")
@@ -28,9 +30,26 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private List<UserLessonInteraction> userLessonInteractions;
+
+    @ManyToOne
+    private Group group;
+
+    @OneToMany(mappedBy = "sender")
+    private List<Message> messages = new ArrayList<>();
+
     @ManyToOne
     @JoinColumn(name = "difficulty_level_id")
     private DifficultyLevel difficultyLevel;
+
+    @ManyToOne
+    private BlockedUser blockedUser;
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private List<Annotation> annotations;
 
     @OneToMany(mappedBy = "user")
     private List<UserLessonInteraction> interactions;
@@ -45,11 +64,16 @@ public class User implements UserDetails {
         this.role = role;
     }
 
-    public User(UUID id, String name, String email, DifficultyLevel difficultyLevel) {
+    public User(UUID id, String name, String email, DifficultyLevel difficultyLevel, Group group, BlockedUser blockedUser, List<Message> messages, List<UserLessonInteraction> userLessonInteractions, List<Annotation> annotations) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.difficultyLevel = difficultyLevel;
+        this.group = group;
+        this.blockedUser = blockedUser;
+        this.messages = messages;
+        this.userLessonInteractions = userLessonInteractions;
+        this.annotations = annotations;
     }
 
     public UUID getId() {
@@ -154,6 +178,54 @@ public class User implements UserDetails {
 
     public void setLogin(String login) {
         this.login = login;
+    }
+
+    public Group getGroups() {
+        return group;
+    }
+
+    public void setGroups(Group groups) {
+        this.group = groups;
+    }
+
+    public BlockedUser getBlockedUser() {
+        return blockedUser;
+    }
+
+    public void setBlockedUser(BlockedUser blockedUser) {
+        this.blockedUser = blockedUser;
+    }
+
+    public List<Message> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
+    }
+
+    public List<UserLessonInteraction> getUserLessonInteractions() {
+        return userLessonInteractions;
+    }
+
+    public void setUserLessonInteractions(List<UserLessonInteraction> userLessonInteractions) {
+        this.userLessonInteractions = userLessonInteractions;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
+    public List<Annotation> getAnnotations() {
+        return annotations;
+    }
+
+    public void setAnnotations(List<Annotation> annotations) {
+        this.annotations = annotations;
     }
 
     @Override

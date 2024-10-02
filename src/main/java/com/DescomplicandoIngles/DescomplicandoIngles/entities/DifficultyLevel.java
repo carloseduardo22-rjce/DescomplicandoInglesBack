@@ -1,5 +1,6 @@
 package com.DescomplicandoIngles.DescomplicandoIngles.entities;
 
+import com.DescomplicandoIngles.DescomplicandoIngles.entities.GroupMessage.Group;
 import com.DescomplicandoIngles.DescomplicandoIngles.entities.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -16,9 +17,13 @@ public class DifficultyLevel {
 
     private String name;
     private String difficultyLevel;
+    private String description;
 
     @OneToMany(mappedBy = "difficultyLevel")
     private List<User> users;
+
+    @OneToOne(mappedBy = "difficultyLevel")
+    private Group group;
 
     @ManyToOne
     @JoinColumn(name = "learning_module_id")
@@ -32,12 +37,14 @@ public class DifficultyLevel {
 
     }
 
-    public DifficultyLevel(Integer id, String name, LearningModule learningModule, List<Lesson> lessons, String difficultyLevel) {
+    public DifficultyLevel(Integer id, String name, LearningModule learningModule, List<Lesson> lessons, String difficultyLevel, Group group, String description) {
         this.id = id;
         this.name = name;
         this.learningModule = learningModule;
         this.lessons = lessons;
         this.difficultyLevel = difficultyLevel;
+        this.group = group;
+        this.description = description;
     }
 
     public Integer getId() {
@@ -86,6 +93,30 @@ public class DifficultyLevel {
 
     public void setLearningModule(LearningModule learningModule) {
         this.learningModule = learningModule;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
 }
