@@ -12,10 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/Authentication")
@@ -30,6 +27,7 @@ public class AuthenticationController {
     @Autowired
     private TokenService tokenService;
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping(value = "/Login")
     public ResponseEntity login (@RequestBody @Valid AuthenticationDTO data) {
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.login(), data.password());
@@ -49,9 +47,9 @@ public class AuthenticationController {
         // nome, email, login, password, role
         User user = new User(data.login(), ecryptedPassword, data.role());
 
-        this.userRepository.save(user);
+        User userSaved = this.userRepository.save(user);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().body(userSaved);
     }
 
 }

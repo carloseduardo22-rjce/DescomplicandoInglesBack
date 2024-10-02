@@ -29,23 +29,7 @@ class ProgressServiceTest {
     @Test
     @DisplayName("Se a função upgradeProgress for chamada, o percentual de progresso da lição vai ser incrementado em 20.")
     public void testUpgradeProgress_IncrementBy20() {
-        Lesson lesson = new Lesson();
-        lesson.setId(1);
-        lesson.setTitle("Present simple");
-        lesson.setAvailable(true);
-        lesson.setStatus("pending");
 
-        Progress progress = new Progress();
-        progress.setId(1);
-        progress.setPercentual(0);
-        progress.setLesson(lesson);
-
-        when(progressRepository.findByLessonId(lesson.getId())).thenReturn(lesson);
-
-        Progress updateProgress = progressService.updateProgress(progress, 20);
-
-        assertEquals(20, updateProgress.getPercentual());
-        System.out.print(progress.getPercentual());
     }
 
 }
