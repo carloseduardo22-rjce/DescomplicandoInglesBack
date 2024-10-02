@@ -1,5 +1,6 @@
 package com.DescomplicandoIngles.DescomplicandoIngles.entities;
 
+import com.DescomplicandoIngles.DescomplicandoIngles.entities.user.UserLessonInteraction;
 import jakarta.persistence.*;
 
 @Entity
@@ -14,6 +15,9 @@ public class FeedBack {
     private Integer score;
     private Long responseTime;
     private Boolean correctness;
+
+    @OneToOne(mappedBy = "feedback")
+    private Lesson lesson;
 
     @OneToOne
     @JoinColumn(name = "interaction_id")

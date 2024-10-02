@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping(value = "/Report")
 public class ReportController {
@@ -17,9 +19,8 @@ public class ReportController {
     private ReportService reportService;
 
     @GetMapping(value = "/{id}")
-    public ReportDTO returnReport (@PathVariable Integer id) {
-        ReportDTO reportDTO = reportService.findByReport(id);
-        return reportDTO;
+    public ReportDTO returnReport (@PathVariable UUID id) {
+        return reportService.findByReport(id);
     }
 
 }

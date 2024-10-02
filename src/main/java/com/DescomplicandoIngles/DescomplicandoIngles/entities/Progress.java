@@ -1,5 +1,6 @@
 package com.DescomplicandoIngles.DescomplicandoIngles.entities;
 
+import com.DescomplicandoIngles.DescomplicandoIngles.entities.user.UserLessonInteraction;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
@@ -15,6 +16,10 @@ public class Progress {
 
     @JsonIgnore
     @OneToOne
+    @JoinColumn(name = "interaction_id", referencedColumnName = "id")
+    private UserLessonInteraction interaction;
+
+    @OneToOne
     @JoinColumn(name = "lesson_id", referencedColumnName = "id")
     private Lesson lesson;
 
@@ -22,9 +27,10 @@ public class Progress {
 
     }
 
-    public Progress(Integer id, Integer percentual, Lesson lesson) {
+    public Progress(Integer id, Integer percentual, Lesson lesson, UserLessonInteraction userLessonInteraction) {
         this.id = id;
         this.percentual = percentual;
+        this.interaction = userLessonInteraction;
         this.lesson = lesson;
     }
 
@@ -42,6 +48,14 @@ public class Progress {
 
     public void setPercentual(Integer percentual) {
         this.percentual = percentual;
+    }
+
+    public UserLessonInteraction getInteraction() {
+        return interaction;
+    }
+
+    public void setInteraction(UserLessonInteraction interaction) {
+        this.interaction = interaction;
     }
 
     public Lesson getLesson() {

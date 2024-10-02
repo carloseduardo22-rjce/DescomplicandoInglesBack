@@ -1,7 +1,7 @@
 package com.DescomplicandoIngles.DescomplicandoIngles.dto;
 
 import com.DescomplicandoIngles.DescomplicandoIngles.entities.Lesson;
-import com.DescomplicandoIngles.DescomplicandoIngles.entities.User;
+import com.DescomplicandoIngles.DescomplicandoIngles.entities.user.User;
 
 import java.util.List;
 

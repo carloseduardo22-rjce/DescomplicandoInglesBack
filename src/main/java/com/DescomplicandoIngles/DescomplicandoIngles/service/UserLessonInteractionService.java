@@ -1,6 +1,6 @@
 package com.DescomplicandoIngles.DescomplicandoIngles.service;
 
-import com.DescomplicandoIngles.DescomplicandoIngles.entities.UserLessonInteraction;
+import com.DescomplicandoIngles.DescomplicandoIngles.entities.user.UserLessonInteraction;
 import com.DescomplicandoIngles.DescomplicandoIngles.repository.UserLessonInteractionRepository;
 import com.DescomplicandoIngles.DescomplicandoIngles.service.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;

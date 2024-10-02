@@ -1,6 +1,6 @@
 package com.DescomplicandoIngles.DescomplicandoIngles.controllers;
 
-import com.DescomplicandoIngles.DescomplicandoIngles.entities.UserLessonInteraction;
+import com.DescomplicandoIngles.DescomplicandoIngles.entities.user.UserLessonInteraction;
 import com.DescomplicandoIngles.DescomplicandoIngles.service.UserLessonInteractionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +18,7 @@ public class UserLessonInteractionController {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<UserLessonInteraction> userLessonFeedback (@PathVariable Integer id) {
-        UserLessonInteraction userLessonInteraction = userLessonInteractionService.findById(id);
-        return ResponseEntity.ok().body(userLessonInteraction);
+        return ResponseEntity.ok().body(userLessonInteractionService.findById(id));
     }
 
 }
