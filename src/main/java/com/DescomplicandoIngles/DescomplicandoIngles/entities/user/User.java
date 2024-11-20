@@ -23,6 +23,7 @@ public class User implements UserDetails {
 
     private String name;
     private String email;
+    private String photoUrl;
     private String login;
     private String password;
 
@@ -102,6 +103,14 @@ public class User implements UserDetails {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
     }
 
     @Override
