@@ -123,4 +123,5 @@ public class Lesson {
     public void setDescription(String description) {
         this.description = description;
     }
+
 }
