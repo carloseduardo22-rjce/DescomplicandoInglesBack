@@ -1,7 +1,9 @@
 package com.DescomplicandoIngles.DescomplicandoIngles.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -12,12 +14,16 @@ public class Content {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @OneToOne(mappedBy = "content")
-    private Lesson lesson;
 
     private String audioUrl;
     private String imagemUrl;
+
+    @Column(name = "text", columnDefinition = "TEXT")
     private String text;
+
+    @OneToOne(mappedBy = "content")
+    @JsonIgnore
+    private Lesson lesson;
 
     public Content () {
     }

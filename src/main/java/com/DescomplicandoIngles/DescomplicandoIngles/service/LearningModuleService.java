@@ -48,7 +48,7 @@ public class LearningModuleService {
         DifficultyLevel difficultyLevel = difficultyLevelRepository.findByIdAndLearningModule(difficultyId, learningModule)
                 .orElseThrow(() -> new ObjectNotFoundException("Difficulty level not found for this module!"));
 
-        User user = (User) userRepository.findById(userId)
+        User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ObjectNotFoundException("User not found!"));
 
         if (user.getDifficultyLevel() != difficultyLevel) {

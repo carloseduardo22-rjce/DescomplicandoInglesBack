@@ -12,11 +12,16 @@ public class Lesson {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
+    private Integer id;
 
-    String title;
-    String status;
-    Boolean available;
+    private String title;
+    private String status;
+    private Boolean available = true;
+    private String description;
+
+    @ManyToOne
+    @JoinColumn(name = "topic_id")
+    private Topic topic;
 
     @OneToOne
     @JoinColumn(name = "content_id")
@@ -34,7 +39,8 @@ public class Lesson {
 
     }
 
-    public Lesson(Integer id, String title, String status, Boolean available, DifficultyLevel difficultyLevel, Content content, List<UserLessonInteraction> userLessonInteractions) {
+    public Lesson(Integer id, String title, String status, Boolean available, DifficultyLevel difficultyLevel, Content content, List<UserLessonInteraction> userLessonInteractions,
+                  Topic topic, String description) {
         this.id = id;
         this.title = title;
         this.status = status;
@@ -42,6 +48,8 @@ public class Lesson {
         this.difficultyLevel = difficultyLevel;
         this.content = content;
         this.userLessonInteractions = userLessonInteractions;
+        this.topic = topic;
+        this.description = description;
     }
 
     public Integer getId() {
@@ -100,4 +108,19 @@ public class Lesson {
         this.userLessonInteractions = userLessonInteractions;
     }
 
+    public Topic getTopic() {
+        return topic;
+    }
+
+    public void setTopic(Topic topic) {
+        this.topic = topic;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

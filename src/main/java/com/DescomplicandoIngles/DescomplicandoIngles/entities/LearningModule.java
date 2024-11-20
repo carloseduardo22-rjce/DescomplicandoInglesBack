@@ -18,6 +18,9 @@ public class LearningModule {
     private Boolean inMaintenance;
 
     @OneToMany(mappedBy = "learningModule")
+    private List<Topic> topics;
+
+    @OneToMany(mappedBy = "learningModule")
     @JsonIgnore
     private List<DifficultyLevel> difficultyLevels;
 
@@ -25,12 +28,13 @@ public class LearningModule {
 
     }
 
-    public LearningModule(Integer id, String name, String description, List<DifficultyLevel> difficultyLevels, Boolean inMaintenance) {
+    public LearningModule(Integer id, String name, String description, List<DifficultyLevel> difficultyLevels, Boolean inMaintenance, List<Topic> topics) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.difficultyLevels = difficultyLevels;
         this.inMaintenance = inMaintenance;
+        this.topics = topics;
     }
 
     public Integer getId() {
@@ -73,4 +77,11 @@ public class LearningModule {
         this.inMaintenance = inMaintenance;
     }
 
+    public List<Topic> getTopics() {
+        return topics;
+    }
+
+    public void setTopics(List<Topic> topics) {
+        this.topics = topics;
+    }
 }
