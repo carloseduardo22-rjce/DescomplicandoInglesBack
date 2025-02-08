@@ -1,12 +1,11 @@
 package com.DescomplicandoIngles.DescomplicandoIngles.controllers;
 
-import com.DescomplicandoIngles.DescomplicandoIngles.entities.user.AuthenticationDTO;
-import com.DescomplicandoIngles.DescomplicandoIngles.entities.user.LoginResponseDTO;
-import com.DescomplicandoIngles.DescomplicandoIngles.entities.user.RegisterDTO;
-import com.DescomplicandoIngles.DescomplicandoIngles.entities.user.User;
+import com.DescomplicandoIngles.DescomplicandoIngles.entities.user.*;
 import com.DescomplicandoIngles.DescomplicandoIngles.infra.security.TokenService;
 import com.DescomplicandoIngles.DescomplicandoIngles.repository.UserRepository;
+import com.DescomplicandoIngles.DescomplicandoIngles.service.EmailService;
 import jakarta.validation.Valid;
+import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -27,6 +26,9 @@ public class AuthenticationController {
     @Autowired
     private TokenService tokenService;
 
+    @Autowired
+    private EmailService emailService;
+
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping(value = "/Login")
     public ResponseEntity login (@RequestBody @Valid AuthenticationDTO data) {
@@ -44,8 +46,15 @@ public class AuthenticationController {
         if (this.userRepository.findByLogin(data.login()) != null) return ResponseEntity.badRequest().build();
 
         String ecryptedPassword = new BCryptPasswordEncoder().encode(data.password());
-        // nome, email, login, password, role
-        User user = new User(data.login(), ecryptedPassword, data.role());
+
+        if (data.email().isEmpty()) {
+            throw new ValidationException("The object email is obrigatory!");
+        }
+
+        // String login, String password, String email, UserRole role, UserSituation situation
+        User user = new User(data.login(), ecryptedPassword, data.role(), data.email(), UserSituation.PENDING);
+
+        emailService.sendEmailText(user.getEmail(), "Novo usuário cadastrado", "Você está recebendo um e-mail de cadastro");
 
         User userSaved = this.userRepository.save(user);
 

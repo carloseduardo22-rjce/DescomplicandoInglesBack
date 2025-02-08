@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "table_lesson")
@@ -13,18 +12,16 @@ public class Lesson {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
+    private Integer id;
 
-    String title;
-    String status;
-    Boolean available;
-    LocalDateTime lessonStart;
-    LocalDateTime lessonEnd;
-    Integer points;
+    private String title;
+    private String status;
+    private Boolean available = true;
+    private String description;
 
-    @OneToOne
-    @JoinColumn(name = "feedback_id")
-    private FeedBack feedback;
+    @ManyToOne
+    @JoinColumn(name = "topic_id")
+    private Topic topic;
 
     @OneToOne
     @JoinColumn(name = "content_id")
@@ -42,7 +39,8 @@ public class Lesson {
 
     }
 
-    public Lesson(Integer id, String title, String status, Boolean available, DifficultyLevel difficultyLevel, Content content, List<UserLessonInteraction> userLessonInteractions, LocalDateTime lessonStart, LocalDateTime lessonEnd, Integer points) {
+    public Lesson(Integer id, String title, String status, Boolean available, DifficultyLevel difficultyLevel, Content content, List<UserLessonInteraction> userLessonInteractions,
+                  Topic topic, String description) {
         this.id = id;
         this.title = title;
         this.status = status;
@@ -50,9 +48,8 @@ public class Lesson {
         this.difficultyLevel = difficultyLevel;
         this.content = content;
         this.userLessonInteractions = userLessonInteractions;
-        this.lessonStart = lessonStart;
-        this.lessonEnd = lessonEnd;
-        this.points = points;
+        this.topic = topic;
+        this.description = description;
     }
 
     public Integer getId() {
@@ -111,35 +108,20 @@ public class Lesson {
         this.userLessonInteractions = userLessonInteractions;
     }
 
-    public LocalDateTime getLessonStart() {
-        return lessonStart;
+    public Topic getTopic() {
+        return topic;
     }
 
-    public void setLessonStart(LocalDateTime lessonStart) {
-        this.lessonStart = lessonStart;
+    public void setTopic(Topic topic) {
+        this.topic = topic;
     }
 
-    public LocalDateTime getLessonEnd() {
-        return lessonEnd;
+    public String getDescription() {
+        return description;
     }
 
-    public void setLessonEnd(LocalDateTime lessonEnd) {
-        this.lessonEnd = lessonEnd;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public Integer getPoints() {
-        return points;
-    }
-
-    public void setPoints(Integer points) {
-        this.points = points;
-    }
-
-    public FeedBack getFeedback() {
-        return feedback;
-    }
-
-    public void setFeedback(FeedBack feedback) {
-        this.feedback = feedback;
-    }
 }

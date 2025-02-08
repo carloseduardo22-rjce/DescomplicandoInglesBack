@@ -28,6 +28,9 @@ public class User implements UserDetails {
     private String password;
 
     @Enumerated(EnumType.STRING)
+    private UserSituation situation;
+
+    @Enumerated(EnumType.STRING)
     private UserRole role;
 
     @OneToMany(mappedBy = "user")
@@ -58,10 +61,12 @@ public class User implements UserDetails {
 
     }
 
-    public User (String login, String password, UserRole role) {
+    public User (String login, String password, UserRole role, String email, UserSituation situation) {
         this.login = login;
         this.password = password;
         this.role = role;
+        this.email = email;
+        this.situation = situation;
     }
 
     public User(UUID id, String name, String email, DifficultyLevel difficultyLevel, Group group, BlockedUser blockedUser, List<Message> messages, List<UserLessonInteraction> userLessonInteractions, List<Annotation> annotations) {
@@ -162,6 +167,14 @@ public class User implements UserDetails {
 
     public void setInteractions(List<UserLessonInteraction> interactions) {
         this.interactions = interactions;
+    }
+
+    public UserSituation getSituation() {
+        return situation;
+    }
+
+    public void setSituation(UserSituation situation) {
+        this.situation = situation;
     }
 
     public UserRole getRole() {
