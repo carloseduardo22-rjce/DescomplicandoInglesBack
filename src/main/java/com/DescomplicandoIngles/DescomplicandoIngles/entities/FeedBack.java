@@ -16,9 +16,6 @@ public class FeedBack {
     private Long responseTime;
     private Boolean correctness;
 
-    @OneToOne(mappedBy = "feedback")
-    private Lesson lesson;
-
     @OneToOne
     @JoinColumn(name = "interaction_id")
     private UserLessonInteraction interaction;

@@ -33,7 +33,6 @@ public class AuthenticationController {
     @PostMapping(value = "/Login")
     public ResponseEntity login (@RequestBody @Valid AuthenticationDTO data) {
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.login(), data.password());
-        // autenticar usuário e senha
         var auth = this.authenticationManager.authenticate(usernamePassword);
 
         var token = tokenService.generateToken((User) auth.getPrincipal());
@@ -51,7 +50,6 @@ public class AuthenticationController {
             throw new ValidationException("The object email is obrigatory!");
         }
 
-        // String login, String password, String email, UserRole role, UserSituation situation
         User user = new User(data.login(), ecryptedPassword, data.role(), data.email(), UserSituation.PENDING);
 
         emailService.sendEmailText(user.getEmail(), "Novo usuário cadastrado", "Você está recebendo um e-mail de cadastro");

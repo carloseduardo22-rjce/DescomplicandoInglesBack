@@ -41,7 +41,6 @@ public class TokenService {
                     .withIssuer("descomplicandoIngles-api")
                     .build()
                     .verify(token)
-                    // O subject geralmente é usado para armazenar o identificador principal do usuário ou entidade associada ao token (como um ID de usuário).
                     .getSubject();
         }
         catch (JWTVerificationException exception) {
@@ -49,8 +48,6 @@ public class TokenService {
         }
     }
 
-
-    // Informando ao Java que o tempo local está 3 horas atrás do UTC usando ZoneOffset.of("-03:00").
     private Instant genExpirationDate() {
         return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
     }

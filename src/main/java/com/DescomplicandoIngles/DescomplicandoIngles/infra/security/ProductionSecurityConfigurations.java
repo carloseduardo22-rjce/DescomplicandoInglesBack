@@ -32,14 +32,14 @@ public class ProductionSecurityConfigurations {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
          httpSecurity
                  .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-                .csrf(AbstractHttpConfigurer::disable)  // Continua desabilitando CSRF para facilitar testes via Postman
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))  // Sessão stateless - não guarda as informações
+                .csrf(AbstractHttpConfigurer::disable)
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/h2-console/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/Authentication/Login").permitAll() // Permiti que todos os usuarios possam acessar a rota de login mesmo não autenticado
+                        .requestMatchers(HttpMethod.POST, "/Authentication/Login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/Authentication/Register").permitAll()
-                        .requestMatchers(HttpMethod.GET,"/LearningModule/{moduleId}/difficulty/{difficultyId}/user/{userId}/lesson").hasRole("USER") // Permite acesso às rotas especificadas
-                        .anyRequest().authenticated()  // Autenticação para outras rotas
+                        .requestMatchers(HttpMethod.GET,"/LearningModule/{moduleId}/difficulty/{difficultyId}/user/{userId}/lesson").hasRole("USER")
+                        .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
          httpSecurity.headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));
@@ -51,10 +51,10 @@ public class ProductionSecurityConfigurations {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.addAllowedOrigin("http://localhost:4200");  // Permite seu frontend do Angular
-        config.addAllowedHeader("*");  // Permite todos os cabeçalhos
-        config.addAllowedMethod("*");  // Permite todos os métodos (POST, GET, etc.)
-        source.registerCorsConfiguration("/**", config);  // Aplica a configuração para todas as rotas
+        config.addAllowedOrigin("http://localhost:4200");
+        config.addAllowedHeader("*");
+        config.addAllowedMethod("*");
+        source.registerCorsConfiguration("/**", config);
         return source;
     }
 
@@ -63,7 +63,6 @@ public class ProductionSecurityConfigurations {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
-    // método para criptografar a senha do usuário
     @Bean
     public PasswordEncoder passwordEncoder () {
         return new BCryptPasswordEncoder();

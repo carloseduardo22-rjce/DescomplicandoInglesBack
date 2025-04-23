@@ -30,24 +30,24 @@ public class LessonService {
     public Lesson startLesson(Integer id) {
         Lesson lesson = findByID(id);
         lesson.setStatus("pending");
-        return lessonRepository.save(lesson); // Persistindo a mudança no banco de dados
+        return lessonRepository.save(lesson);
     }
 
     public Lesson completeLesson(Integer id) {
         Lesson lesson = findByID(id);
-        lesson.setAvailable(false); // Define como indisponível após completar
+        lesson.setAvailable(false);
         lesson.setStatus("completed");
-        return lessonRepository.save(lesson); // Persistindo a mudança no banco de dados
+        return lessonRepository.save(lesson);
     }
 
     public List<Lesson> findAllAvailables() {
-        return lessonRepository.findAvailableLessons(); // Já retorna a lista de lições disponíveis
+        return lessonRepository.findAvailableLessons();
     }
 
     public List<Lesson> findLessonsByUser(User user) {
         List<UserLessonInteraction> interactions = userLessonInteractionRepository.findByUser(user);
         return interactions.stream()
-                .map(UserLessonInteraction::getLesson) // Mapeia cada interação para a lição associada
+                .map(UserLessonInteraction::getLesson)
                 .collect(Collectors.toList());
     }
     
