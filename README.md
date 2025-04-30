@@ -1,5 +1,5 @@
-# Plataforma Descomplicando o Inglês
+# Platform Simplifying English
 
-## Descrição
+## Description
 
-Este projeto consiste em uma plataforma de inglês gratuita que pega desde o nível mais básico -> A1 – Iniciante (Beginner) até -> B2 – Intermediário Superior (Upper Intermediate). Terá disponível um plano premium que trará alguns benefícios. 
+This project consists of a free English platform that ranges from the most basic level -> A1 – Beginner to -> B2 – Upper Intermediate. A premium plan will be available that will bring some benefits.
