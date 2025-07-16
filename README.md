@@ -1,8 +1,8 @@
-# Platform Simplifying English
+# Plataforma feita para descomplicar o inglês
 
-This project consists of a free English platform that ranges from the most basic level -> A1 – Beginner to -> B2 – Upper Intermediate. A premium plan will be available that will bring some benefits.
+Este projeto consiste em uma plataforma de inglês gratuita que abrange desde o nível mais básico -> A1 – Iniciante até -> B2 – Intermediário Superior. Um plano premium estará disponível, o que trará alguns benefícios.
 
-## Technologies used
+## Tecnologias usadas
 
 ![Spring Boot](https://img.shields.io/badge/Spring_Boot-6DB33F?style=for-the-badge&logo=spring-boot&logoColor=white)
 ![Spring Data JPA](https://img.shields.io/badge/Spring_Data_JPA-6DB33F?style=for-the-badge&logo=spring&logoColor=white)
