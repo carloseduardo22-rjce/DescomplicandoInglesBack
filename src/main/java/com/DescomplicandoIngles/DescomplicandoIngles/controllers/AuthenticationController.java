@@ -6,7 +6,7 @@ import com.DescomplicandoIngles.DescomplicandoIngles.repository.UserRepository;
 import com.DescomplicandoIngles.DescomplicandoIngles.service.EmailService;
 import jakarta.validation.Valid;
 import jakarta.validation.ValidationException;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -14,33 +14,33 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "/Authentication")
+@RequestMapping(value = "/api/v1/authentication")
 public class AuthenticationController {
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
+    private final UserRepository userRepository;
+    private final TokenService tokenService;
+    private final EmailService emailService;
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private TokenService tokenService;
-
-    @Autowired
-    private EmailService emailService;
+    public AuthenticationController(AuthenticationManager authenticationManager, UserRepository userRepository, TokenService tokenService, EmailService emailService) {
+        this.authenticationManager = authenticationManager;
+        this.userRepository = userRepository;
+        this.tokenService = tokenService;
+        this.emailService = emailService;
+    }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @PostMapping(value = "/Login")
+    @PostMapping(value = "/login")
     public ResponseEntity login (@RequestBody @Valid AuthenticationDTO data) {
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.login(), data.password());
         var auth = this.authenticationManager.authenticate(usernamePassword);
 
         var token = tokenService.generateToken((User) auth.getPrincipal());
 
-        return ResponseEntity.ok(new LoginResponseDTO(token));
+        return ResponseEntity.status(HttpStatus.OK).body(new LoginResponseDTO(token));
     }
 
-    @PostMapping(value = "/Register")
+    @PostMapping(value = "/register")
     public ResponseEntity register (@RequestBody @Valid RegisterDTO data) {
         if (this.userRepository.findByLogin(data.login()) != null) return ResponseEntity.badRequest().build();
 
@@ -56,7 +56,7 @@ public class AuthenticationController {
 
         User userSaved = this.userRepository.save(user);
 
-        return ResponseEntity.ok().body(userSaved);
+        return ResponseEntity.status(HttpStatus.CREATED).body(userSaved);
     }
 
 }

@@ -8,13 +8,11 @@ import com.DescomplicandoIngles.DescomplicandoIngles.entities.user.User;
 import com.DescomplicandoIngles.DescomplicandoIngles.repository.DifficultyLevelRepository;
 import com.DescomplicandoIngles.DescomplicandoIngles.repository.LearningModuleRepository;
 import com.DescomplicandoIngles.DescomplicandoIngles.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import com.DescomplicandoIngles.DescomplicandoIngles.service.exception.ObjectNotFoundException;
 
-
+import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -22,15 +20,17 @@ import java.util.stream.Collectors;
 @Service
 public class LearningModuleService {
 
-    @Autowired
-    private LearningModuleRepository learningModuleRepository;
+    private final LearningModuleRepository learningModuleRepository;
+    private final DifficultyLevelRepository difficultyLevelRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private DifficultyLevelRepository difficultyLevelRepository;
-
-    @Autowired
-    private UserRepository userRepository;
-
+    public LearningModuleService(LearningModuleRepository learningModuleRepository,
+                                DifficultyLevelRepository difficultyLevelRepository,
+                                UserRepository userRepository) {
+        this.learningModuleRepository = learningModuleRepository;
+        this.difficultyLevelRepository = difficultyLevelRepository;
+        this.userRepository = userRepository;
+    }
 
     public List<LearningModule> moduleList() {
         return learningModuleRepository.findAll();
@@ -38,7 +38,7 @@ public class LearningModuleService {
 
     public ResponseEntity<?> findLessonsByModuleAndDifficulty(Integer learningModuleId, Integer difficultyId, UUID userId) {
         LearningModule learningModule = learningModuleRepository.findById(learningModuleId)
-                .orElseThrow(() -> new ObjectNotFoundException("Module not found!"));
+                .orElseThrow(() -> new EntityNotFoundException("LearningModule not found with id: " + learningModuleId));
 
         if (learningModule.getInMaintenance()) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN)
@@ -46,10 +46,10 @@ public class LearningModuleService {
         }
 
         DifficultyLevel difficultyLevel = difficultyLevelRepository.findByIdAndLearningModule(difficultyId, learningModule)
-                .orElseThrow(() -> new ObjectNotFoundException("Difficulty level not found for this module!"));
+                .orElseThrow(() -> new EntityNotFoundException("DifficultyLevel not found with id: " + difficultyId + " for module: " + learningModuleId));
 
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new ObjectNotFoundException("User not found!"));
+                .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + userId));
 
         if (user.getDifficultyLevel() != difficultyLevel) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN)

@@ -5,10 +5,9 @@ import com.DescomplicandoIngles.DescomplicandoIngles.entities.user.User;
 import com.DescomplicandoIngles.DescomplicandoIngles.entities.user.UserLessonInteraction;
 import com.DescomplicandoIngles.DescomplicandoIngles.repository.LessonRepository;
 import com.DescomplicandoIngles.DescomplicandoIngles.repository.UserLessonInteractionRepository;
-import com.DescomplicandoIngles.DescomplicandoIngles.service.exception.ObjectNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -16,15 +15,18 @@ import java.util.stream.Collectors;
 @Service
 public class LessonService {
 
-    @Autowired
-    private LessonRepository lessonRepository;
+    private final LessonRepository lessonRepository;
+    private final UserLessonInteractionRepository userLessonInteractionRepository;
 
-    @Autowired
-    private UserLessonInteractionRepository userLessonInteractionRepository;
+    public LessonService(LessonRepository lessonRepository, 
+                        UserLessonInteractionRepository userLessonInteractionRepository) {
+        this.lessonRepository = lessonRepository;
+        this.userLessonInteractionRepository = userLessonInteractionRepository;
+    }
 
     public Lesson findByID (Integer id) {
         Optional<Lesson> optionalLesson = lessonRepository.findById(id);
-        return optionalLesson.orElseThrow(() -> new ObjectNotFoundException("Lesson not found! ID: " + id));
+        return optionalLesson.orElseThrow(() -> new EntityNotFoundException("Lesson not found with id: " + id));
     }
 
     public Lesson startLesson(Integer id) {

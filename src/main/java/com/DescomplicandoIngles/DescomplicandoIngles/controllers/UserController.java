@@ -5,33 +5,36 @@ import com.DescomplicandoIngles.DescomplicandoIngles.entities.DifficultyLevel;
 import com.DescomplicandoIngles.DescomplicandoIngles.entities.user.User;
 import com.DescomplicandoIngles.DescomplicandoIngles.service.DifficultyLevelService;
 import com.DescomplicandoIngles.DescomplicandoIngles.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
 @RestController
-@RequestMapping(value = "/User")
+@RequestMapping(value = "/api/v1/user")
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+    private final DifficultyLevelService difficultyLevelService;
 
-    @Autowired
-    private DifficultyLevelService difficultyLevelService;
+    public UserController (UserService userService, DifficultyLevelService difficultyLevelService) {
+        this.userService = userService;
+        this.difficultyLevelService = difficultyLevelService;
+    }
 
-    @PutMapping(value = "/UpdateNameAndNivel/{id}")
-    public ResponseEntity updateNameAndNivel (@PathVariable UUID id, @RequestBody UpdateUserDTO userDTO) {
+    @PutMapping(value = "/updateNameAndLevel/{id}")
+    public ResponseEntity updateNameAndLevel (@PathVariable UUID id, @RequestBody UpdateUserDTO userDTO) {
         DifficultyLevel difficultyLevel = difficultyLevelService.findById(userDTO.getIdDifficultyLevel());
         User user = userService.findById(id);
 
         user.setName(userDTO.getName());
         user.setDifficultyLevel(difficultyLevel);
 
-        userService.saveUser(user);
+        User userUpdated = userService.saveUser(user);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.status(HttpStatus.OK).body(userUpdated);
     }
 
 }

@@ -2,7 +2,8 @@ package com.DescomplicandoIngles.DescomplicandoIngles.controllers;
 
 import com.DescomplicandoIngles.DescomplicandoIngles.entities.Annotation;
 import com.DescomplicandoIngles.DescomplicandoIngles.service.AnnotationService;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,20 +11,24 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(value = "/Annotation")
+@RequestMapping(value = "/api/v1/annotation")
 public class AnnotationController {
 
-    @Autowired
-    private AnnotationService annotationService;
+    private final AnnotationService annotationService;
 
-    @PostMapping(value = "/NewAnnotation")
-    public ResponseEntity<Annotation> saveAnnotation (@RequestBody Annotation annotation) {
-        return ResponseEntity.ok().body(annotationService.saveAnnotation(annotation));
+    public AnnotationController(AnnotationService annotationService) {
+        this.annotationService = annotationService;
     }
 
-    @GetMapping(value = "/User/{id}")
+    @PostMapping
+    public ResponseEntity<Annotation> saveAnnotation (@RequestBody Annotation annotation) {
+        Annotation savedAnnotation = annotationService.saveAnnotation(annotation);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedAnnotation);
+    }
+
+    @GetMapping("/users/{id}")
     public ResponseEntity<List<Annotation>> findListAnnotationsUser (@PathVariable UUID id) {
-        return ResponseEntity.ok().body(annotationService.findListAnnotationsUser(id));
+        return ResponseEntity.status(HttpStatus.OK).body(annotationService.findListAnnotationsUser(id));
     }
 
 }

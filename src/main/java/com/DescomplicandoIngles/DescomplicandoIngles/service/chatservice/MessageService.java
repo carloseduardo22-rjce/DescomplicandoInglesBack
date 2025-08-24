@@ -4,23 +4,24 @@ import com.DescomplicandoIngles.DescomplicandoIngles.entities.GroupMessage.Group
 import com.DescomplicandoIngles.DescomplicandoIngles.entities.GroupMessage.Message;
 import com.DescomplicandoIngles.DescomplicandoIngles.repository.GroupRepository;
 import com.DescomplicandoIngles.DescomplicandoIngles.repository.MessageRepository;
-import com.DescomplicandoIngles.DescomplicandoIngles.service.exception.ObjectNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import jakarta.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
 
 @Service
 public class MessageService {
 
-    @Autowired
-    private MessageRepository messageRepository;
+    private final MessageRepository messageRepository;
+    private final GroupRepository groupRepository;
 
-    @Autowired
-    private GroupRepository groupRepository;
+    public MessageService(MessageRepository messageRepository, GroupRepository groupRepository) {
+        this.messageRepository = messageRepository;
+        this.groupRepository = groupRepository;
+    }
 
     public Message saveMessage (Integer groupId, Message message) {
-        Group group = groupRepository.findById(groupId).orElseThrow(() -> new ObjectNotFoundException("Object group not found!"));
+        Group group = groupRepository.findById(groupId).orElseThrow(() -> new EntityNotFoundException("Group not found with id: " + groupId));
 
         message.setGroup(group);
         message.setTimestamp(LocalDateTime.now());
