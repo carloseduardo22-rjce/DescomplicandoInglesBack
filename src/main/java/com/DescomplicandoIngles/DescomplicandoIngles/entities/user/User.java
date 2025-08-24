@@ -7,6 +7,11 @@ import com.DescomplicandoIngles.DescomplicandoIngles.entities.GroupMessage.Group
 import com.DescomplicandoIngles.DescomplicandoIngles.entities.GroupMessage.Message;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,8 +26,14 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
+    @NotNull
+    @Min(1)
+    @Max(35)
     private String name;
+
+    @Email
     private String email;
+
     private String photoUrl;
     private String login;
     private String password;

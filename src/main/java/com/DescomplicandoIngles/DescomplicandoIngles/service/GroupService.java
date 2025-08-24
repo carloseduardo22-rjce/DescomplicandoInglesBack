@@ -3,6 +3,7 @@ package com.DescomplicandoIngles.DescomplicandoIngles.service;
 import com.DescomplicandoIngles.DescomplicandoIngles.entities.GroupMessage.Group;
 import com.DescomplicandoIngles.DescomplicandoIngles.repository.GroupRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import jakarta.persistence.EntityNotFoundException;
 
@@ -15,6 +16,7 @@ public class GroupService {
         this.groupRepository = groupRepository;
     }
 
+    @Transactional(readOnly = true)
     public Group findById (Integer id)  {
         return groupRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Group not found with id: " + id));
     }

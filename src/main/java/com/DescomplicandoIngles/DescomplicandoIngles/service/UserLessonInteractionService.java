@@ -6,6 +6,7 @@ import com.DescomplicandoIngles.DescomplicandoIngles.entities.user.User;
 import com.DescomplicandoIngles.DescomplicandoIngles.entities.user.UserLessonInteraction;
 import com.DescomplicandoIngles.DescomplicandoIngles.repository.UserLessonInteractionRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import jakarta.persistence.EntityNotFoundException;
 
@@ -26,11 +27,13 @@ public class UserLessonInteractionService {
         this.lessonService = lessonService;
     }
 
+    @Transactional(readOnly = true)
     public UserLessonInteraction findById (Integer id) {
         return userLessonInteractionRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("UserLessonInteraction not found with id: " + id));
     }
 
+    @Transactional
     public UserLessonInteraction saveUserLessonInteraction(UUID userId, Integer lessonId) {
         User user = userService.findById(userId);
         Lesson lesson = lessonService.findByID(lessonId);
@@ -43,6 +46,7 @@ public class UserLessonInteractionService {
         return userLessonInteractionRepository.save(userLessonInteraction);
     }
 
+    @Transactional
     public UserLessonInteraction updateUserLessonInteraction (Integer id, UpdateUserLessonInteractionDTO updateUserLessonInteractionDTO) {
         UserLessonInteraction userLessonInteraction = userLessonInteractionRepository.
                 findById(id).orElseThrow(() -> new EntityNotFoundException("UserLessonInteraction not found with id: " + id));

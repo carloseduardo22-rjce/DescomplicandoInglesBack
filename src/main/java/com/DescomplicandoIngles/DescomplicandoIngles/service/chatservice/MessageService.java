@@ -5,6 +5,7 @@ import com.DescomplicandoIngles.DescomplicandoIngles.entities.GroupMessage.Messa
 import com.DescomplicandoIngles.DescomplicandoIngles.repository.GroupRepository;
 import com.DescomplicandoIngles.DescomplicandoIngles.repository.MessageRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import jakarta.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
@@ -20,6 +21,7 @@ public class MessageService {
         this.groupRepository = groupRepository;
     }
 
+    @Transactional
     public Message saveMessage (Integer groupId, Message message) {
         Group group = groupRepository.findById(groupId).orElseThrow(() -> new EntityNotFoundException("Group not found with id: " + groupId));
 

@@ -11,6 +11,7 @@ import com.DescomplicandoIngles.DescomplicandoIngles.repository.UserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
@@ -32,10 +33,12 @@ public class LearningModuleService {
         this.userRepository = userRepository;
     }
 
+    @Transactional(readOnly = true)
     public List<LearningModule> moduleList() {
         return learningModuleRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
     public ResponseEntity<?> findLessonsByModuleAndDifficulty(Integer learningModuleId, Integer difficultyId, UUID userId) {
         LearningModule learningModule = learningModuleRepository.findById(learningModuleId)
                 .orElseThrow(() -> new EntityNotFoundException("LearningModule not found with id: " + learningModuleId));
