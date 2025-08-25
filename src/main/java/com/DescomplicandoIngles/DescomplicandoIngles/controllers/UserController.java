@@ -24,7 +24,7 @@ public class UserController {
         this.difficultyLevelService = difficultyLevelService;
     }
 
-    @PutMapping(value = "/updateNameAndLevel/{id}")
+    @PatchMapping(value = "/{id}")
     public ResponseEntity updateNameAndLevel (@PathVariable UUID id, @RequestBody UpdateUserDTO userDTO) {
         DifficultyLevel difficultyLevel = difficultyLevelService.findById(userDTO.getIdDifficultyLevel());
         User user = userService.findById(id);
