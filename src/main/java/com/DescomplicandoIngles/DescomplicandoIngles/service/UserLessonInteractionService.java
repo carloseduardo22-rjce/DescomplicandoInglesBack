@@ -48,8 +48,7 @@ public class UserLessonInteractionService {
 
     @Transactional
     public UserLessonInteraction updateUserLessonInteraction (Integer id, UpdateUserLessonInteractionDTO updateUserLessonInteractionDTO) {
-        UserLessonInteraction userLessonInteraction = userLessonInteractionRepository.
-                findById(id).orElseThrow(() -> new EntityNotFoundException("UserLessonInteraction not found with id: " + id));
+        UserLessonInteraction userLessonInteraction = findById(id);
         
         userLessonInteraction.setPoints(updateUserLessonInteractionDTO.points());
         userLessonInteraction.setCompletionDate(updateUserLessonInteractionDTO.date());

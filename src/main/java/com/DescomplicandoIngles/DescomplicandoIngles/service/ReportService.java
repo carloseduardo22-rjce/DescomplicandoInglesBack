@@ -6,7 +6,6 @@ import com.DescomplicandoIngles.DescomplicandoIngles.entities.user.User;
 import com.DescomplicandoIngles.DescomplicandoIngles.entities.user.UserLessonInteraction;
 import com.DescomplicandoIngles.DescomplicandoIngles.repository.UserLessonInteractionRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
@@ -23,7 +22,6 @@ public class ReportService {
         this.userLessonInteractionRepository = userLessonInteractionRepository;
     }
 
-    @Transactional(readOnly = true)
     public ReportDTO findByReport(UUID id) {
         User user = userService.findById(id);
 
