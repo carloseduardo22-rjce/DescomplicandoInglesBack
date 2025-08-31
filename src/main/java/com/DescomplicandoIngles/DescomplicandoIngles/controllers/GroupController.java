@@ -21,7 +21,7 @@ public class GroupController {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<Group> findById (@PathVariable Integer id) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(groupService.findById(id));
+        return ResponseEntity.status(HttpStatus.OK).body(groupService.findById(id));
     }
 
 }

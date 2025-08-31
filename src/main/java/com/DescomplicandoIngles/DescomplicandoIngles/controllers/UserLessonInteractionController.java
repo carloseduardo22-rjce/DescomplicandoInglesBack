@@ -19,7 +19,7 @@ public class UserLessonInteractionController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<UserLessonInteraction> userLessonFeedback (@PathVariable Integer id) {
+    public ResponseEntity<UserLessonInteraction> userLessonInteraction (@PathVariable Integer id) {
         return ResponseEntity.status(HttpStatus.OK).body(userLessonInteractionService.findById(id));
     }
 
