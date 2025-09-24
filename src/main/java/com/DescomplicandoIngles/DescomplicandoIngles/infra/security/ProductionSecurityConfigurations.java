@@ -36,8 +36,7 @@ public class ProductionSecurityConfigurations {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/h2-console/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/Authentication/Login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/Authentication/Register").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/v1/authentication/google").permitAll()
                         .requestMatchers(HttpMethod.GET,"/LearningModule/{moduleId}/difficulty/{difficultyId}/user/{userId}/lesson").hasRole("USER")
                         .anyRequest().authenticated()
                 )

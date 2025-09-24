@@ -34,7 +34,7 @@ public class User implements UserDetails {
     @Email
     private String email;
 
-    private String photoUrl;
+    private String pictureUrl;
     private String login;
     private String password;
 
@@ -79,6 +79,11 @@ public class User implements UserDetails {
         this.email = email;
         this.situation = situation;
     }
+    
+    public User(String name, String email) {
+    	this.name = name;
+    	this.email = email;
+    }
 
     public User(UUID id, String name, String email, DifficultyLevel difficultyLevel, Group group, BlockedUser blockedUser, List<Message> messages, List<UserLessonInteraction> userLessonInteractions, List<Annotation> annotations) {
         this.id = id;
@@ -117,11 +122,11 @@ public class User implements UserDetails {
     }
 
     public String getPhotoUrl() {
-        return photoUrl;
+        return pictureUrl;
     }
 
     public void setPhotoUrl(String photoUrl) {
-        this.photoUrl = photoUrl;
+        this.pictureUrl = photoUrl;
     }
 
     @Override
